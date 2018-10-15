@@ -1,5 +1,7 @@
 package gui;
 
+import bl.KniffelTableModel;
+
 
 /**
  *
@@ -7,11 +9,11 @@ package gui;
  */
 public class KniffelGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form KniffelGUI
-     */
+    KniffelTableModel model = new KniffelTableModel();
+    
     public KniffelGUI() {
         initComponents();
+        jTable1.setModel(model);
     }
 
     /**
