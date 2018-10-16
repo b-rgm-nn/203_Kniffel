@@ -22,6 +22,11 @@ public class KniffelTableModel extends AbstractTableModel{
         }
     }
 
+    public void toggleSelected(int i) {
+        rows[i].setSelected(!rows[i].isSelected());
+        fireTableCellUpdated(i, 1);
+    }
+    
     @Override
     public int getRowCount() {
         return rows.length;
