@@ -14,6 +14,7 @@ public class KniffelGUI extends javax.swing.JFrame {
     public KniffelGUI() {
         initComponents();
         jTable1.setModel(model);
+        jTable1.setDefaultRenderer(Object.class, new KniffelTableRenderer());
     }
 
     /**

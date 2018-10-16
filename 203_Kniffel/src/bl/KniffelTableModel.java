@@ -18,7 +18,7 @@ public class KniffelTableModel extends AbstractTableModel{
         KniffelValue[] values = KniffelValue.values();
         rows = new KniffelRow[values.length];
         for (int i = 0; i < values.length; i++) {
-            rows[i] = new KniffelRow(values[i], false);
+            rows[i] = new KniffelRow(values[i], false, 0);
         }
     }
 
@@ -34,14 +34,7 @@ public class KniffelTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        KniffelRow row = rows[rowIndex];
-        
-        switch(columnIndex) {
-            case 0: return row.getName();
-            case 1: return row.isSelected();
-            case 2: return row.getPoints();
-        }
-        return "?";
+        return rows[rowIndex];
     }
 
     @Override

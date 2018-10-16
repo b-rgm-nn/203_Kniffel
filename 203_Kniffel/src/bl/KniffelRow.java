@@ -8,10 +8,12 @@ package bl;
 public class KniffelRow {
     private KniffelValue name;
     private boolean selected;
+    private int points;
 
-    public KniffelRow(KniffelValue name, boolean selected) {
+    public KniffelRow(KniffelValue name, boolean selected, int points) {
         this.name = name;
         this.selected = selected;
+        this.points = points;
     }
 
     public KniffelValue getName() {
@@ -19,7 +21,7 @@ public class KniffelRow {
     }
 
     public int getPoints() {
-        return 0;
+        return points;
     }
 
     public boolean isSelected() {
@@ -29,4 +31,10 @@ public class KniffelRow {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    
 }
