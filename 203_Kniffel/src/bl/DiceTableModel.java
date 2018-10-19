@@ -14,9 +14,6 @@ public class DiceTableModel extends AbstractTableModel {
 
     {
         resetTosses();
-        for (int i = 0; i < dice.length; i++) {
-            dice[i] = new Dice(0, false);
-        }
     }
 
     public void toggleSelected(int col) {
@@ -26,6 +23,16 @@ public class DiceTableModel extends AbstractTableModel {
         fireTableCellUpdated(0, col);
     }
 
+    public int[] getDiceResult() {
+        if(tosses >= 3)
+            return null;
+        int[] result = new int[dice.length];
+        for (int i = 0; i < dice.length; i++) {
+            result[i] = dice[i].getValue();
+        }
+        return result;
+    }
+    
     @Override
     public int getRowCount() {
         return 1;
@@ -56,5 +63,8 @@ public class DiceTableModel extends AbstractTableModel {
 
     public void resetTosses() {
         tosses = 3;
+        for (int i = 0; i < dice.length; i++) {
+            dice[i] = new Dice(0, false);
+        }
     }
 }

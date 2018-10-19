@@ -11,20 +11,27 @@ import javax.swing.table.AbstractTableModel;
 public class KniffelTableModel extends AbstractTableModel{
     
     private static String[] columns = {"Spiel", "Wahl", "Punkte"};
-    
+
     private KniffelRow[] rows;
+    private KniffelBL bl = new KniffelBL();
     
     {
         KniffelValue[] values = KniffelValue.values();
         rows = new KniffelRow[values.length];
         for (int i = 0; i < values.length; i++) {
-            rows[i] = new KniffelRow(values[i], false, 0);
+            rows[i] = new KniffelRow(values[i], false);
         }
     }
 
-    public void toggleSelected(int i) {
-        rows[i].setSelected(!rows[i].isSelected());
+    public boolean selectGame(int i, int[] dice) {
+        KniffelRow row = rows[i];
+        if(row.isSelected())
+            return false;
+        row.setSelected(true);
+        row.setPoints(bl.getPoints(row.getName(), dice));
         fireTableCellUpdated(i, 1);
+        fireTableCellUpdated(i, 2);
+        return true;
     }
     
     @Override

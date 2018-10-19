@@ -191,7 +191,11 @@ public class KniffelGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablePointsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePointsMouseClicked
-        kniffelModel.toggleSelected(tablePoints.getSelectedRow());
+        int[] dice = diceModel.getDiceResult();
+        if(dice == null) {
+            return;
+        }
+        kniffelModel.selectGame(tablePoints.getSelectedRow(), dice);
     }//GEN-LAST:event_tablePointsMouseClicked
 
     private void btTossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTossActionPerformed
