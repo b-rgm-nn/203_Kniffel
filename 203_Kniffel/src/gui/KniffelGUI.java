@@ -9,12 +9,14 @@ import bl.KniffelTableModel;
  */
 public class KniffelGUI extends javax.swing.JFrame {
 
-    KniffelTableModel model = new KniffelTableModel();
+    KniffelTableModel kniffelModel = new KniffelTableModel();
+    DiceTableModel diceModel = new DiceTableModel();
     
     public KniffelGUI() {
         initComponents();
-        jTable1.setModel(model);
+        jTable1.setModel(kniffelModel);
         jTable1.setDefaultRenderer(Object.class, new KniffelTableRenderer());
+        tableDice.setModel(diceModel);
     }
 
     /**
@@ -27,6 +29,8 @@ public class KniffelGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         pnDice = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableDice = new javax.swing.JTable();
         btToss = new javax.swing.JButton();
         pnSelection = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -43,18 +47,42 @@ public class KniffelGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tableDice.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tableDice);
+
         javax.swing.GroupLayout pnDiceLayout = new javax.swing.GroupLayout(pnDice);
         pnDice.setLayout(pnDiceLayout);
         pnDiceLayout.setHorizontalGroup(
             pnDiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnDiceLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnDiceLayout.setVerticalGroup(
             pnDiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 57, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDiceLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         btToss.setText("würfeln");
+        btToss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTossActionPerformed(evt);
+            }
+        });
 
         pnSelection.setBorder(javax.swing.BorderFactory.createTitledBorder("Gewinnkarte"));
 
@@ -155,8 +183,12 @@ public class KniffelGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        model.toggleSelected(jTable1.getSelectedRow());
+        kniffelModel.toggleSelected(jTable1.getSelectedRow());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btTossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTossActionPerformed
+        diceModel.toss();
+    }//GEN-LAST:event_btTossActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,10 +232,12 @@ public class KniffelGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnDice;
     private javax.swing.JPanel pnPoints;
     private javax.swing.JPanel pnSelection;
+    private javax.swing.JTable tableDice;
     private javax.swing.JTextField tfBotSum;
     private javax.swing.JTextField tfSum;
     private javax.swing.JTextField tfUpBon;
