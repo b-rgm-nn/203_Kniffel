@@ -200,6 +200,7 @@ public class KniffelGUI extends javax.swing.JFrame {
             diceModel.resetTosses();
         }
         tfUpSum.setText(kniffelModel.upperSum()+"");
+        tfUpBon.setText(kniffelModel.upperBonus()+"");
     }//GEN-LAST:event_tablePointsMouseClicked
 
     private void btTossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTossActionPerformed

@@ -42,6 +42,13 @@ public class KniffelTableModel extends AbstractTableModel{
         return sum;
     }
     
+    public int upperBonus() {
+        if(upperSum() >= 63) {
+            return 35;
+        }
+        return 0;
+    }
+    
     @Override
     public int getRowCount() {
         return rows.length;
