@@ -35,9 +35,19 @@ public class KniffelBL {
                 return getStreet(diceResult, 5) * 40;
             case Kniffel: 
                 return getKniffel(diceResult);
+            case Chance:
+                return getChance(diceResult);
             default:
                 return -100;
         }
+    }
+    
+    private int getChance(int[] diceResult) {
+        int sum = 0;
+        for (int i : diceResult) {
+            sum += i;
+        }
+        return sum;
     }
     
     private int getNumResults(int[] diceResult, int number) {

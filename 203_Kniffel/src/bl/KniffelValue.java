@@ -16,5 +16,6 @@ public enum KniffelValue {
     FullHouse, 
     StrasseKlein, 
     StrasseGross, 
-    Kniffel
+    Kniffel,
+    Chance
 }

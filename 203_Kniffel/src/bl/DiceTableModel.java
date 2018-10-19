@@ -9,7 +9,21 @@ import javax.swing.table.AbstractTableModel;
  */
 public class DiceTableModel extends AbstractTableModel {
 
-    int[] dice = new int[6];
+    private Dice[] dice = new Dice[6];
+    private int tosses = 3;
+
+    {
+        for (int i = 0; i < dice.length; i++) {
+            dice[i] = new Dice(0, false);
+        }
+    }
+
+    public void toggleSelected(int col) {
+        if(dice[col].getValue() == 0)
+            return;
+        dice[col].toggleFixed();
+        fireTableCellUpdated(0, col);
+    }
 
     @Override
     public int getRowCount() {
@@ -27,11 +41,19 @@ public class DiceTableModel extends AbstractTableModel {
     }
 
     public void toss() {
+        if(--tosses < 0)
+            return;
+        
         Random rand = new Random();
         for (int i = 0; i < dice.length; i++) {
-            dice[i] = rand.nextInt(6)+1;
+            if(dice[i].isFixed())
+                continue;
+            dice[i].setValue(rand.nextInt(6) + 1);
         }
         fireTableRowsUpdated(0, 0);
     }
 
+    public void resetTosses() {
+        tosses = 3;
+    }
 }
