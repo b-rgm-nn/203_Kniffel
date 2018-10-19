@@ -1,5 +1,6 @@
 package gui;
 
+import bl.DiceTableModel;
 import bl.KniffelTableModel;
 
 
@@ -17,6 +18,9 @@ public class KniffelGUI extends javax.swing.JFrame {
         jTable1.setModel(kniffelModel);
         jTable1.setDefaultRenderer(Object.class, new KniffelTableRenderer());
         tableDice.setModel(diceModel);
+        tableDice.setDefaultRenderer(Object.class, new DiceTableRenderer());
+        tableDice.setRowHeight(50);
+        tableDice.getTableHeader().setUI(null);
     }
 
     /**

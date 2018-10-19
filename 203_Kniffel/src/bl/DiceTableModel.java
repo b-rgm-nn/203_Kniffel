@@ -1,4 +1,4 @@
-package gui;
+package bl;
 
 import java.util.Random;
 import javax.swing.table.AbstractTableModel;
