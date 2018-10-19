@@ -201,6 +201,8 @@ public class KniffelGUI extends javax.swing.JFrame {
         }
         tfUpSum.setText(kniffelModel.upperSum()+"");
         tfUpBon.setText(kniffelModel.upperBonus()+"");
+        tfBotSum.setText(kniffelModel.lowerSum()+"");
+        tfSum.setText(kniffelModel.totalSum()+"");
     }//GEN-LAST:event_tablePointsMouseClicked
 
     private void btTossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTossActionPerformed

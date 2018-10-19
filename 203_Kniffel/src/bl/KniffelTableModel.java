@@ -49,6 +49,18 @@ public class KniffelTableModel extends AbstractTableModel{
         return 0;
     }
     
+    public int lowerSum() {
+        int sum = 0;
+        for (int i = 6; i < rows.length; i++) {
+            sum += rows[i].getPoints();
+        }
+        return sum;
+    }
+    
+    public int totalSum() {
+        return upperBonus() + upperSum() + lowerSum();
+    }
+    
     @Override
     public int getRowCount() {
         return rows.length;
