@@ -11,6 +11,8 @@ import javax.swing.table.AbstractTableModel;
 public class KniffelTableModel extends AbstractTableModel{
     
     private static String[] columns = {"Spiel", "Wahl", "Punkte"};
+    
+    private boolean gameOver = false;
 
     private KniffelRow[] rows;
     private KniffelBL bl = new KniffelBL();
@@ -31,7 +33,15 @@ public class KniffelTableModel extends AbstractTableModel{
         row.setPoints(bl.getPoints(row.getName(), dice));
         fireTableCellUpdated(i, 1);
         fireTableCellUpdated(i, 2);
+        checkGameOver();        
         return true;
+    }
+    private void checkGameOver() {
+        for (KniffelRow row : rows) {
+            if(!row.isSelected())
+                return;
+        }
+        gameOver = true;
     }
     
     public int upperSum() {
@@ -80,4 +90,10 @@ public class KniffelTableModel extends AbstractTableModel{
     public String getColumnName(int column) {
         return columns[column];
     }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+    
+    
 }

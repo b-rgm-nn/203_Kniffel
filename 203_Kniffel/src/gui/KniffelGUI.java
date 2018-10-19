@@ -2,6 +2,7 @@ package gui;
 
 import bl.DiceTableModel;
 import bl.KniffelTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,12 +15,23 @@ public class KniffelGUI extends javax.swing.JFrame {
 
     public KniffelGUI() {
         initComponents();
+        startGame();
+    }
+
+    private void startGame() {
+        kniffelModel = new KniffelTableModel();
+        diceModel = new DiceTableModel();
         tablePoints.setModel(kniffelModel);
         tablePoints.setDefaultRenderer(Object.class, new KniffelTableRenderer());
         tableDice.setModel(diceModel);
         tableDice.setDefaultRenderer(Object.class, new DiceTableRenderer());
         tableDice.setRowHeight(50);
         tableDice.getTableHeader().setUI(null);
+        
+        tfBotSum.setText("0");
+        tfSum.setText("0");
+        tfUpBon.setText("0");
+        tfUpSum.setText("0");
     }
 
     /**
@@ -47,6 +59,7 @@ public class KniffelGUI extends javax.swing.JFrame {
         tfBotSum = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tfSum = new javax.swing.JTextField();
+        btRestartGame = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,15 +130,15 @@ public class KniffelGUI extends javax.swing.JFrame {
         pnSelectionLayout.setHorizontalGroup(
             pnSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnSelectionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnSelectionLayout.setVerticalGroup(
             pnSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnSelectionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -160,6 +173,13 @@ public class KniffelGUI extends javax.swing.JFrame {
         tfSum.setText("0");
         pnPoints.add(tfSum);
 
+        btRestartGame.setText("Restart Game");
+        btRestartGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRestartGameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,7 +190,10 @@ public class KniffelGUI extends javax.swing.JFrame {
                     .addComponent(pnDice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btToss, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnPoints, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnPoints, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btRestartGame)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,10 +204,12 @@ public class KniffelGUI extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(btToss)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnPoints, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btRestartGame)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,19 +224,31 @@ public class KniffelGUI extends javax.swing.JFrame {
         if (success) {
             diceModel.resetTosses();
         }
-        tfUpSum.setText(kniffelModel.upperSum()+"");
-        tfUpBon.setText(kniffelModel.upperBonus()+"");
-        tfBotSum.setText(kniffelModel.lowerSum()+"");
-        tfSum.setText(kniffelModel.totalSum()+"");
+        tfUpSum.setText(kniffelModel.upperSum() + "");
+        tfUpBon.setText(kniffelModel.upperBonus() + "");
+        tfBotSum.setText(kniffelModel.lowerSum() + "");
+        tfSum.setText(kniffelModel.totalSum() + "");
+        
+        if(kniffelModel.isGameOver()) {
+            JOptionPane.showMessageDialog(this, "Congratulations! You have achieved " + kniffelModel.totalSum() + " Points!");
+        }
     }//GEN-LAST:event_tablePointsMouseClicked
 
     private void btTossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTossActionPerformed
+        if(kniffelModel.isGameOver())
+            return;
         diceModel.toss();
     }//GEN-LAST:event_btTossActionPerformed
 
     private void tableDiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDiceMouseClicked
+        if(kniffelModel.isGameOver())
+            return;
         diceModel.toggleSelected(tableDice.getSelectedColumn());
     }//GEN-LAST:event_tableDiceMouseClicked
+
+    private void btRestartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRestartGameActionPerformed
+        startGame();
+    }//GEN-LAST:event_btRestartGameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,6 +286,7 @@ public class KniffelGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btRestartGame;
     private javax.swing.JButton btToss;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

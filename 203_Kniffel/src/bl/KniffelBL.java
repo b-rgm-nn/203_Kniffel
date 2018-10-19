@@ -89,7 +89,7 @@ public class KniffelBL {
 
     private int getStreet(int[] diceResult, int length) {
         int street = 1;
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < diceResult.length; i++) {
             if(diceResult[i] == diceResult[i-1] + 1)
                 street++;
             else
