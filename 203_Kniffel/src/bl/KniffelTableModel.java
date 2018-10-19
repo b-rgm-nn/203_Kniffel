@@ -34,6 +34,14 @@ public class KniffelTableModel extends AbstractTableModel{
         return true;
     }
     
+    public int upperSum() {
+        int sum = 0;
+        for (int i = 0; i < 6; i++) {
+            sum += rows[i].getPoints();
+        }
+        return sum;
+    }
+    
     @Override
     public int getRowCount() {
         return rows.length;

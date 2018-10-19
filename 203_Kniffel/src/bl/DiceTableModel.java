@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class DiceTableModel extends AbstractTableModel {
 
-    private Dice[] dice = new Dice[6];
+    private Dice[] dice = new Dice[5];
     private int tosses;
 
     {
@@ -66,5 +66,6 @@ public class DiceTableModel extends AbstractTableModel {
         for (int i = 0; i < dice.length; i++) {
             dice[i] = new Dice(0, false);
         }
+        fireTableRowsUpdated(0, 0);
     }
 }
