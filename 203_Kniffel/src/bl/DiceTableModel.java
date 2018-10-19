@@ -10,9 +10,10 @@ import javax.swing.table.AbstractTableModel;
 public class DiceTableModel extends AbstractTableModel {
 
     private Dice[] dice = new Dice[6];
-    private int tosses = 3;
+    private int tosses;
 
     {
+        resetTosses();
         for (int i = 0; i < dice.length; i++) {
             dice[i] = new Dice(0, false);
         }
