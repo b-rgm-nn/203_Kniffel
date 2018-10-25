@@ -93,7 +93,7 @@ public class KniffelBL {
             if(diceResult[i] == diceResult[i-1] + 1)
                 street++;
             else
-                street = 0;
+                street = 1;
             if(street == length) {
                 return 1;
             }
